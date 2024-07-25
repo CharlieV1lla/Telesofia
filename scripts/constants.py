@@ -8,9 +8,15 @@ TASK_CONFIGS = {
         'episode_len': 1000,
         'camera_names': None
     },
+        'touch_side_table_img':{
+        'dataset_dir': DATA_DIR + '/touch_side_table_img',
+        'num_episodes': 5,
+        'episode_len': 1000,
+        'camera_names': None
+    },
     'say_yes':{
         'dataset_dir': DATA_DIR + '/say_yes',
-        'num_episodes': 20,
+        'num_episodes': 5,
         'episode_len': 1000,
         'camera_names': None
     },
