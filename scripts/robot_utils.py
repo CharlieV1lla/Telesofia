@@ -14,21 +14,15 @@ class ImageRecorder:
         from sensor_msgs.msg import Image
         self.is_debug = is_debug
         self.bridge = CvBridge()
-        self.camera_names = ['cam_high', 'cam_low', 'cam_left_wrist', 'cam_right_wrist']
+        self.camera_names = ['cam_table']
         if init_node:
             rospy.init_node('image_recorder', anonymous=True)
         for cam_name in self.camera_names:
             setattr(self, f'{cam_name}_image', None)
             setattr(self, f'{cam_name}_secs', None)
             setattr(self, f'{cam_name}_nsecs', None)
-            if cam_name == 'cam_high':
-                callback_func = self.image_cb_cam_high
-            elif cam_name == 'cam_low':
-                callback_func = self.image_cb_cam_low
-            elif cam_name == 'cam_left_wrist':
-                callback_func = self.image_cb_cam_left_wrist
-            elif cam_name == 'cam_right_wrist':
-                callback_func = self.image_cb_cam_right_wrist
+            if cam_name == 'cam_table':
+                callback_func = self.image_cb_cam_table
             else:
                 raise NotImplementedError
             rospy.Subscriber(f"/usb_{cam_name}/image_raw", Image, callback_func)
@@ -44,20 +38,8 @@ class ImageRecorder:
         if self.is_debug:
             getattr(self, f'{cam_name}_timestamps').append(data.header.stamp.secs + data.header.stamp.secs * 1e-9)
 
-    def image_cb_cam_high(self, data):
-        cam_name = 'cam_high'
-        return self.image_cb(cam_name, data)
-
-    def image_cb_cam_low(self, data):
-        cam_name = 'cam_low'
-        return self.image_cb(cam_name, data)
-
-    def image_cb_cam_left_wrist(self, data):
-        cam_name = 'cam_left_wrist'
-        return self.image_cb(cam_name, data)
-
-    def image_cb_cam_right_wrist(self, data):
-        cam_name = 'cam_right_wrist'
+    def image_cb_cam_table(self, data):
+        cam_name = 'cam_table'
         return self.image_cb(cam_name, data)
 
     def get_images(self):

@@ -7,7 +7,7 @@ import dm_env
 from constants import DT, START_ARM_POSE, MASTER_GRIPPER_JOINT_NORMALIZE_FN, PUPPET_GRIPPER_JOINT_UNNORMALIZE_FN
 from constants import PUPPET_GRIPPER_POSITION_NORMALIZE_FN, PUPPET_GRIPPER_VELOCITY_NORMALIZE_FN
 from constants import PUPPET_GRIPPER_JOINT_OPEN, PUPPET_GRIPPER_JOINT_CLOSE
-from robot_utils import Recorder
+from robot_utils import Recorder, ImageRecorder
 from robot_utils import setup_master_bot, setup_puppet_bot, move_arms, move_grippers
 from interbotix_xs_modules.arm import InterbotixManipulatorXS
 from interbotix_xs_msgs.msg import JointSingleCommand
@@ -44,6 +44,7 @@ class RealEnv:
             self.setup_robot()
 
         self.recorder = Recorder(init_node=False)
+        self.image_recorder = ImageRecorder(init_node=False)
         self.gripper_command = JointSingleCommand(name="gripper")
 
     def setup_robot(self):
@@ -88,6 +89,7 @@ class RealEnv:
         obs['qpos'] = self.get_qpos()
         obs['qvel'] = self.get_qvel()
         obs['effort'] = self.get_effort()
+        obs['images'] = self.get_images()
         return obs
 
     def get_reward(self):
@@ -115,6 +117,12 @@ class RealEnv:
             discount=None,
             observation=self.get_observation())
 
+    def render(self, camera_names):
+        images = self.get_images()
+        for camera_name in camera_names:
+            plt.imshow(images[camera_name])
+            plt.title(camera_name)
+            plt.show()
 
 def get_action(master_bot):
     action = np.zeros(7) # 6 joint + 1 gripper

@@ -1,0 +1,55 @@
+<launch>
+
+  <arg name="robot_model_master"                default="vx300s"/>
+  <arg name="robot_model_puppet"                default="vx300s"/>
+  <arg name="base_link_master"                  default="base_link"/>
+  <arg name="base_link_puppet"                  default="base_link"/>
+  <arg name="master_modes"                      default="$(find telesofia)/config/master_modes.yaml"/>
+  <arg name="puppet_modes"                      default="$(find telesofia)/config/puppet_modes.yaml"/>
+  <arg name="use_puppet_rviz"                   default="true"/>
+  <arg name="rvizconfig"                        default="$(find telesofia)/rviz/xsarm_puppet.rviz" />
+  <arg name="launch_driver"                     default="true"/>
+  <arg name="use_sim"                           default="false"/>
+
+  <arg name="robot_name_master"                 value="master"/>
+  <arg name="robot_name_puppet"                 value="puppet"/>
+
+  <include if="$(arg launch_driver)" file="$(find interbotix_xsarm_control)/launch/xsarm_control.launch">
+    <arg name="robot_model"                       value="$(arg robot_model_master)"/>
+    <arg name="robot_name"                        value="$(arg robot_name_master)"/>
+    <arg name="base_link_frame"                   value="$(arg base_link_master)"/>
+    <arg name="use_world_frame"                   value="false"/>
+    <arg name="use_rviz"                          value="false"/>
+    <arg name="mode_configs"                      value="$(arg master_modes)"/>
+    <arg name="use_sim"                           value="$(arg use_sim)"/>
+  </include>
+
+  <include if="$(arg launch_driver)" file="$(find interbotix_xsarm_control)/launch/xsarm_control.launch">
+    <arg name="robot_model"                       value="$(arg robot_model_puppet)"/>
+    <arg name="robot_name"                        value="$(arg robot_name_puppet)"/>
+    <arg name="base_link_frame"                   value="$(arg base_link_puppet)"/>
+    <arg name="use_world_frame"                   value="false"/>
+    <arg name="use_rviz"                          value="false"/>
+    <arg name="mode_configs"                      value="$(arg puppet_modes)"/>
+    <arg name="use_sim"                           value="$(arg use_sim)"/>
+  </include>
+
+  <node
+    name="master_transform_broadcaster"
+    pkg="tf2_ros"
+    type="static_transform_publisher"
+    args="0 -0.25 0 0 0 0 /world /$(arg robot_name_master)/base_link"/>
+
+    <param name="video_device" value="/dev/CAM_RGBD" />
+    <param name="framerate" value="60" />
+    <param name="image_width" value="640" />
+    <param name="image_height" value="480" />
+    <param name="pixel_format" value="yuyv" />
+    <param name="camera_frame_id" value="usb_cam" />
+    <param name="io_method" value="mmap"/>
+    <param name="autofocus" value="false"/>
+    <param name="focus" value="40"/>
+    <param name="autoexposure" value="true"/>
+  </node>
+
+</launch>

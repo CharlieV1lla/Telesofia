@@ -20,6 +20,36 @@ TASK_CONFIGS = {
         'episode_len': 1000,
         'camera_names': None
     },
+        'look_at_lid':{
+        'dataset_dir': DATA_DIR + '/look_at_lid',
+        'num_episodes': 20,
+        'episode_len': 1000,
+        'camera_names': ['cam_rgb']
+    },
+        'look_at_cube':{
+        'dataset_dir': DATA_DIR + '/look_at_cube',
+        'num_episodes': 20,
+        'episode_len': 1000,
+        'camera_names': ['cam_rgb']
+    },
+        'look_at_cube_small':{
+        'dataset_dir': DATA_DIR + '/look_at_cube_small',
+        'num_episodes': 20,
+        'episode_len': 1000,
+        'camera_names': ['cam_rgb']
+    },
+        'look_at_cube_small_2_demos':{
+        'dataset_dir': DATA_DIR + '/look_at_cube_small',
+        'num_episodes': 2,
+        'episode_len': 1000,
+        'camera_names': ['cam_rgb']
+    },
+        'look_at_cube_small_90':{
+        'dataset_dir': DATA_DIR + '/look_at_cube_small_90',
+        'num_episodes': 20,
+        'episode_len': 1000,
+        'camera_names': ['cam_rgb']
+    },
 }
 
 ### ALOHA fixed constants
