@@ -52,7 +52,7 @@ def opening_ceremony(master_bot, puppet_bot):
     print(f'Started!')
 
 
-def capture_one_episode(dt, max_timesteps, camera_names, dataset_dir, dataset_name, overwrite):
+def capture_one_episode(dt, max_timesteps, camera_names, dataset_dir, dataset_name, overwrite, depth):
     print(f'Dataset name: {dataset_name}')
 
     backup_names = ['cam_high', 'cam_low', 'cam_wrist']
@@ -123,6 +123,8 @@ def capture_one_episode(dt, max_timesteps, camera_names, dataset_dir, dataset_na
     else:
         for cam_name in backup_names:
             data_dict[f'/observations/images/{cam_name}'] = []
+    if depth:
+        data_dict[f'/observations/depth'] = []
 
     # len(action): max_timesteps, len(time_steps): max_timesteps + 1
     while actions:
@@ -138,6 +140,8 @@ def capture_one_episode(dt, max_timesteps, camera_names, dataset_dir, dataset_na
         else:
             for cam_name in backup_names:
                 data_dict[f'/observations/images/{cam_name}'].append(np.zeros((480, 640, 3), dtype='uint8'))
+        if depth:
+            data_dict[f'/observations/depth'].append(ts.observation['images']['depth'])
 
     # HDF5
     t0 = time.time()
@@ -153,6 +157,9 @@ def capture_one_episode(dt, max_timesteps, camera_names, dataset_dir, dataset_na
             for cam_name in backup_names: 
                 image.create_dataset(cam_name, (max_timesteps, 480, 640, 3), dtype='uint8',
                                          chunks=(1, 480, 640, 3), )
+        if depth:
+            obs.create_dataset('depth', (max_timesteps, 480, 640), dtype='uint8',
+                                         chunks=(1, 480, 640), )
 
         _ = obs.create_dataset('qpos', (max_timesteps, 7))
         _ = obs.create_dataset('qvel', (max_timesteps, 7))
@@ -171,6 +178,7 @@ def main(args):
     dataset_dir = task_config['dataset_dir']
     max_timesteps = task_config['episode_len']
     camera_names = task_config['camera_names']
+    depth = task_config['depth']
 
     if args['episode_idx'] is not None:
         episode_idx = args['episode_idx']
@@ -181,7 +189,7 @@ def main(args):
     dataset_name = f'episode_{episode_idx}'
     print(dataset_name + '\n')
     while True:
-        is_healthy = capture_one_episode(DT, max_timesteps, camera_names, dataset_dir, dataset_name, overwrite)
+        is_healthy = capture_one_episode(DT, max_timesteps, camera_names, dataset_dir, dataset_name, overwrite, depth)
         if is_healthy:
             break
 

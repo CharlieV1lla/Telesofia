@@ -14,18 +14,21 @@ class ImageRecorder:
         from sensor_msgs.msg import Image
         self.is_debug = is_debug
         self.bridge = CvBridge()
-        self.camera_names = ['cam_table']
+        self.camera_names = ['color', 'depth']
         if init_node:
             rospy.init_node('image_recorder', anonymous=True)
         for cam_name in self.camera_names:
             setattr(self, f'{cam_name}_image', None)
             setattr(self, f'{cam_name}_secs', None)
             setattr(self, f'{cam_name}_nsecs', None)
-            if cam_name == 'cam_table':
-                callback_func = self.image_cb_cam_table
+            if cam_name == 'color':
+                callback_func = self.image_cb_cam_color
+                rospy.Subscriber(f"/camera/{cam_name}/image_raw", Image, callback_func)
+            elif cam_name == 'depth':
+                callback_func = self.image_cb_cam_depth
+                rospy.Subscriber(f"/camera/{cam_name}/image_rect_raw", Image, callback_func)
             else:
                 raise NotImplementedError
-            rospy.Subscriber(f"/usb_{cam_name}/image_raw", Image, callback_func)
             if self.is_debug:
                 setattr(self, f'{cam_name}_timestamps', deque(maxlen=50))
         time.sleep(0.5)
@@ -38,8 +41,12 @@ class ImageRecorder:
         if self.is_debug:
             getattr(self, f'{cam_name}_timestamps').append(data.header.stamp.secs + data.header.stamp.secs * 1e-9)
 
-    def image_cb_cam_table(self, data):
-        cam_name = 'cam_table'
+    def image_cb_cam_color(self, data):
+        cam_name = 'color'
+        return self.image_cb(cam_name, data)
+    
+    def image_cb_cam_depth(self, data):
+        cam_name = 'depth'
         return self.image_cb(cam_name, data)
 
     def get_images(self):

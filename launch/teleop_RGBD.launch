@@ -1,5 +1,4 @@
 <launch>
-
   <arg name="robot_model_master"                default="vx300s"/>
   <arg name="robot_model_puppet"                default="vx300s"/>
   <arg name="base_link_master"                  default="base_link"/>
@@ -40,16 +39,25 @@
     type="static_transform_publisher"
     args="0 -0.25 0 0 0 0 /world /$(arg robot_name_master)/base_link"/>
 
-    <param name="video_device" value="/dev/CAM_RGBD" />
-    <param name="framerate" value="60" />
-    <param name="image_width" value="640" />
-    <param name="image_height" value="480" />
-    <param name="pixel_format" value="yuyv" />
-    <param name="camera_frame_id" value="usb_cam" />
-    <param name="io_method" value="mmap"/>
-    <param name="autofocus" value="false"/>
-    <param name="focus" value="40"/>
-    <param name="autoexposure" value="true"/>
-  </node>
-
+  <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+    <arg name="depth_width"              value="640"/>
+    <arg name="depth_height"             value="480"/>
+    <arg name="depth_fps"                value="60"/>
+    <arg name="enable_depth"             value="true"/>
+    <arg name="color_width"              value="640"/>
+    <arg name="color_height"             value="480"/>
+    <arg name="color_fps"                value="60"/>
+    <arg name="enable_color"             value="true"/>
+    <arg name="infra_width"              value="640"/>
+    <arg name="infra_height"             value="480"/>
+    <arg name="infra_fps"                value="30"/>
+    <arg name="enable_infra"             value="false"/>
+    <arg name="enable_infra1"            value="false"/>
+    <arg name="enable_infra2"            value="false"/>
+    <arg name="enable_fisheye"           value="false"/>
+    <arg name="enable_pointcloud"        value="false"/>
+    <arg name="align_depth"              value="true"/>
+    <arg name="publish_tf"               value="true"/>
+    <arg name="tf_publish_rate"          value="60"/>
+  </include>
 </launch>

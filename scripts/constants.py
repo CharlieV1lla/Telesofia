@@ -24,31 +24,38 @@ TASK_CONFIGS = {
         'dataset_dir': DATA_DIR + '/look_at_lid',
         'num_episodes': 20,
         'episode_len': 1000,
-        'camera_names': ['cam_rgb']
+        'camera_names': ['cam_table']
     },
         'look_at_cube':{
         'dataset_dir': DATA_DIR + '/look_at_cube',
         'num_episodes': 20,
         'episode_len': 1000,
-        'camera_names': ['cam_rgb']
+        'camera_names': ['cam_table']
     },
         'look_at_cube_small':{
         'dataset_dir': DATA_DIR + '/look_at_cube_small',
         'num_episodes': 20,
         'episode_len': 1000,
-        'camera_names': ['cam_rgb']
+        'camera_names': ['cam_table']
     },
         'look_at_cube_small_2_demos':{
         'dataset_dir': DATA_DIR + '/look_at_cube_small',
         'num_episodes': 2,
         'episode_len': 1000,
-        'camera_names': ['cam_rgb']
+        'camera_names': ['cam_table']
     },
         'look_at_cube_small_90':{
         'dataset_dir': DATA_DIR + '/look_at_cube_small_90',
         'num_episodes': 20,
         'episode_len': 1000,
-        'camera_names': ['cam_rgb']
+        'camera_names': ['cam_table']
+    },
+        'look_at_cube_small_RGBD':{
+        'dataset_dir': DATA_DIR + '/look_at_cube_small_RGBD',
+        'num_episodes': 20,
+        'episode_len': 500,
+        'camera_names': ['color'],
+        'depth': True
     },
 }
 
