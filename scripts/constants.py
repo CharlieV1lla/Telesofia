@@ -57,6 +57,49 @@ TASK_CONFIGS = {
         'camera_names': ['color'],
         'depth': True
     },
+        'push_cube':{
+        'dataset_dir': DATA_DIR + '/push_cube',
+        'num_episodes': 54,
+        'episode_len': 1000,
+        'camera_names': ['color'],
+        'depth': True
+    },
+        'push_cube_2_init':{
+        'dataset_dir': DATA_DIR + '/push_cube_2_init',
+        'num_episodes': 20,
+        'episode_len': 1000,
+        'camera_names': ['color'],
+        'depth': True
+    },
+        'touch_center_table':{
+        'dataset_dir': DATA_DIR + '/touch_center_table',
+        'num_episodes': 10,
+        'episode_len': 1000,
+        'camera_names': ['color'],
+        'depth': True
+    },
+    'push_cube_1p':{
+        'dataset_dir': DATA_DIR + '/push_cube_1p',
+        'num_episodes': 12,
+        'episode_len': 1000,
+        'camera_names': ['color'],
+        'depth': True
+    },
+        'push_cube_2p':{
+        'dataset_dir': DATA_DIR + '/push_cube_2p',
+        'num_episodes': 8,
+        'episode_len': 1000,
+        'camera_names': ['color'],
+        'depth': True
+    },
+
+        'push_cube_left_right':{
+        'dataset_dir': DATA_DIR + '/push_cube_left_right',
+        'num_episodes': 20,
+        'episode_len': 750,
+        'camera_names': ['color'],
+        'depth': True
+    },
 }
 
 ### ALOHA fixed constants
