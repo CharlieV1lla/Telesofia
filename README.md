@@ -16,7 +16,7 @@ Files to train new policies can be found in: https://github.com/CharlieV1lla/sof
 
 ## Policy execution
 
-![alt text](policy_execution.gif)
+![alt text](policy_run.gif)
 
 ## Credits
 
