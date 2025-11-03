@@ -23,7 +23,7 @@ Files to train new policies can be found in: https://github.com/CharlieV1lla/sof
 
 ## Source Material
 
-This repository develops on the work done by Tony Zhao: https://github.com/tonyzhaozh/aloha
+This repository develops on the work done here: https://github.com/tonyzhaozh/aloha
 
 Trossen Robotics packages for robot manipulation: https://github.com/Interbotix/interbotix_ros_manipulators/tree/main/interbotix_ros_xsarms
 
