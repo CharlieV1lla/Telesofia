@@ -12,11 +12,11 @@ Files to train new policies can be found in: https://github.com/CharlieV1lla/sof
 
 ## Data collection
 
-Relleno
+![alt text](data_collection.gif)
 
 ## Policy execution
 
-Relleno
+![alt text](policy_execution.gif)
 
 ## Credits
 
