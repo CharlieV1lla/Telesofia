@@ -1,6 +1,22 @@
 # Overview
 
-Welcome to Telesofia. 
+Welcome to Telesofia! This repository contains the files utilized for teleoperation of a robotic arm and for demonstration data collection, as well as running learnt AI policies using Imitation Learning.
+
+Files to train new policies can be found in: https://github.com/CharlieV1lla/sofiaPolicies
+
+
+
+## Teleoperation
+
+teleop.gif
+
+## Data collection
+
+Relleno
+
+## Policy execution
+
+Relleno
 
 ## Credits
 
