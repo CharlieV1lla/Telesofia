@@ -8,7 +8,7 @@ Files to train new policies can be found in: https://github.com/CharlieV1lla/sof
 
 ## Teleoperation
 
-teleop.gif
+![alt text](teleop.gif)
 
 ## Data collection
 
