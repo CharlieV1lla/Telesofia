@@ -35,5 +35,5 @@ Special thanks to my supervisor Andrew Davison, to Marwan Taher and all the memb
 
 ## Contact
 
-Ccarlosvillalobos.githbub@gmail.com
+carlosvillalobos.githbub@gmail.com
 
